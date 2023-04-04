@@ -14,8 +14,6 @@
 
 	const updatingSoon = germanyDate.getHours() < 11;
 
-	console.log('Current time in Germany:', germanyDate.getTime(), updatingSoon);
-
 	let showDetails = false;
 </script>
 
