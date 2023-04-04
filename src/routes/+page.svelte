@@ -16,7 +16,7 @@
 			}}
 		>
 			<h1 class="text-7xl">
-				{data?.open ? 'YES.' : 'NO.'}
+				{data?.open ? '🍻YES.' : 'NO.'}
 			</h1>
 		</div>
         {#if showDetails}
