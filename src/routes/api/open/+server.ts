@@ -20,8 +20,8 @@ export async function GET() {
 
 
     return json({message: extractedText, open: isOpen});
-  } catch (error) {
-    console.error('Error fetching and parsing HTML:', error);
+  } catch (err) {
+    console.error('Error fetching and parsing HTML:', err);
     throw error(500, 'Error fetching from the aumeister website.')
   }
 }
