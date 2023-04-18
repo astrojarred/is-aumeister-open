@@ -1,4 +1,6 @@
 <script>
+	import { fade } from 'svelte/transition';
+
 	export let data;
 	console.log(data.message);
 
@@ -13,8 +15,15 @@
 	const germanyDate = new Date(now.getTime() + offset);
 
 	const updatingSoon = germanyDate.getHours() < 11;
-	//const updatingSoon = true;
 
+	let hideMenu = false;
+	let menuHovered = false;
+	let menuYposition = 0.0;
+
+	function handleMouseMove(event) {
+		menuYposition = window.innerHeight - event.clientY;
+		menuHovered = menuYposition < 150;
+	}
 </script>
 
 {#if data}
@@ -44,19 +53,43 @@
 				</div>
 			</div>
 		{/if}
-		<div class="flex flex-row items-center justify-center mt-5 gap-4">
-			<label class="btn btn-solid-primary" for="modal-1">More Info</label>
-			<div
-				class="btn btn-solid-primary"
-				on:click={() => {
-					window.open('https://www.aumeister.de/willkommen/', '_blank');
-				}}
-				on:keydown={() => {
-					window.open('https://www.aumeister.de/willkommen/', '_blank');
-				}}
-			>
-				Aumeister Website
-			</div>
+		<div
+			class="fixed bottom-0 w-full mb-6 pt-40 opacity-50 hover:opacity-80 transition-opacity"
+			on:mousemove={handleMouseMove}
+		>
+			{#if !hideMenu || menuHovered}
+				<div class="flex flex-row items-center justify-center mx-5 mt-5 gap-4" transition:fade>
+					<label class="btn btn-solid-primary" for="modal-1">More Info</label>
+					<div
+						class="btn btn-solid-primary"
+						on:click={() => {
+							window.open('https://www.aumeister.de/willkommen/', '_blank');
+						}}
+						on:keydown={() => {
+							window.open('https://www.aumeister.de/willkommen/', '_blank');
+						}}
+					>
+						Aumeister Website
+					</div>
+					{#if !hideMenu}
+						<div
+							class="btn btn-solid-primary"
+							on:click={() => (hideMenu = true)}
+							on:keydown={() => (hideMenu = true)}
+						>
+							Hide Menu
+						</div>
+					{:else}
+						<div
+							class="btn btn-solid-primary"
+							on:click={() => (hideMenu = false)}
+							on:keydown={() => (hideMenu = false)}
+						>
+							Stick Menu
+						</div>
+					{/if}
+				</div>
+			{/if}
 		</div>
 	</div>
 	<input class="modal-state" id="modal-1" type="checkbox" />
