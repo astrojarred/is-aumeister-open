@@ -5,8 +5,9 @@ import fetch from 'node-fetch';
 
 const URL = 'https://www.aumeister.de/willkommen/';
 
-/** @type {import('./$types').PageLoad} */
+/** @type {import('./$types').PageServerLoad} */
 export async function load() {
+
 	try {
         let isOpen;
 		const response = await fetch(URL);

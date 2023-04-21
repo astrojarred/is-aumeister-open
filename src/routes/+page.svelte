@@ -1,8 +1,36 @@
-<script>
+<script lang="ts">
 	import { fade } from 'svelte/transition';
+	import langStore from '../Store'
 
 	export let data;
-	console.log(data.message);
+
+	$: lang = $langStore;
+
+
+	const localizationDict = {
+		en: {
+			yes: '🍻YES.',
+			no: 'NO.',
+			moreInfo: 'More Info',
+			website: 'Aumeister Website',
+			hideMenu: 'Hide Menu',
+			stickMenu: 'Stick Menu',
+			fromWebsite: 'From the website',
+			attention: 'Attention',
+			thisCouldChange: 'This could change around 10 AM!',
+		},
+		de: {
+			yes: '🍻JA.',
+			no: 'NEIN.',
+			moreInfo: 'Mehr Info',
+			website: 'Aumeister Webseite',
+			hideMenu: 'Menü verstecken',
+			stickMenu: 'Menü festhalten',
+			fromWebsite: 'Von der Webseite',
+			attention: 'Achtung',
+			thisCouldChange: 'Dies könnte sich gegen 10 Uhr ändern!',
+		}
+	};
 
 	const germanyTimeZone = 'Europe/Berlin';
 	const now = new Date();
@@ -20,16 +48,21 @@
 	let menuHovered = false;
 	let menuYposition = 0.0;
 
-	function handleMouseMove(event) {
+	function handleMouseMove(event: MouseEvent) {
 		menuYposition = window.innerHeight - event.clientY;
 		menuHovered = menuYposition < 150;
 	}
+
+	function setLang(newLang: string) {
+		langStore.set(newLang);
+	}
+
 </script>
 
 {#if data}
 	<div class="h-screen flex flex-col items-center justify-center">
 		<h1 class="text-7xl">
-			{data?.open ? '🍻YES.' : 'NO.'}
+			{data?.open ? localizationDict[lang].yes : localizationDict[lang].no}
 		</h1>
 		{#if updatingSoon}
 			<div class="alert alert-info lg:max-w-lg mx-5 mt-5">
@@ -48,8 +81,8 @@
 					/>
 				</svg>
 				<div class="flex flex-col">
-					<span>Attention</span>
-					<span class="text-content2">This could change around 10 AM!</span>
+					<span>{localizationDict[lang].attention}</span>
+					<span class="text-content2">{localizationDict[lang].thisCouldChange}</span>
 				</div>
 			</div>
 		{/if}
@@ -58,8 +91,8 @@
 			on:mousemove={handleMouseMove}
 		>
 			{#if !hideMenu || menuHovered}
-				<div class="flex flex-row items-center justify-center mx-5 mt-5 gap-4" transition:fade>
-					<label class="btn btn-solid-primary" for="modal-1">More Info</label>
+				<div class="flex flex-col sm:flex-row align-middle sm:items-center sm:justify-center mt-5 gap-2 mx-4 md:gap-4" transition:fade>
+					<label class="btn btn-solid-primary" for="modal-1">{localizationDict[lang].moreInfo}</label>
 					<div
 						class="btn btn-solid-primary"
 						on:click={() => {
@@ -69,15 +102,24 @@
 							window.open('https://www.aumeister.de/willkommen/', '_blank');
 						}}
 					>
-						Aumeister Website
+						{localizationDict[lang].website}
 					</div>
+					{#if lang === "en"}
+						<div class="btn btn-solid-primary" on:click={() => setLang('de')} on:keydown={() => setLang('de')}>
+							DE
+						</div>
+					{:else}
+						<div class="btn btn-solid-primary" on:click={() => setLang('en')} on:keydown={() => setLang('en')}>
+							EN
+						</div>
+					{/if}
 					{#if !hideMenu}
 						<div
 							class="btn btn-solid-primary"
 							on:click={() => (hideMenu = true)}
 							on:keydown={() => (hideMenu = true)}
 						>
-							Hide Menu
+							{localizationDict[lang].hideMenu}
 						</div>
 					{:else}
 						<div
@@ -85,7 +127,7 @@
 							on:click={() => (hideMenu = false)}
 							on:keydown={() => (hideMenu = false)}
 						>
-							Stick Menu
+							{localizationDict[lang].stickMenu}
 						</div>
 					{/if}
 				</div>
@@ -97,7 +139,7 @@
 		<label class="modal-overlay" for="modal-1" />
 		<div class="modal-content flex flex-col gap-5">
 			<label for="modal-1" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
-			<h2 class="text-xl">From the website:</h2>
+			<h2 class="text-xl">{localizationDict[lang].fromWebsite}:</h2>
 			<span>{data.message}</span>
 		</div>
 	</div>
