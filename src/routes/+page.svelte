@@ -91,10 +91,10 @@
 			on:mousemove={handleMouseMove}
 		>
 			{#if !hideMenu || menuHovered}
-				<div class="flex flex-col sm:flex-row align-middle sm:items-center sm:justify-center mt-5 gap-2 mx-4 md:gap-4" transition:fade>
-					<label class="btn btn-solid-primary" for="modal-1">{localizationDict[lang].moreInfo}</label>
+				<div class="flex flex-col items-end sm:items-center sm:flex-row sm:align-middle sm:justify-center mt-5 gap-2 mx-4 md:gap-4" transition:fade>
+					<label class="btn btn-sm sm:btn-md btn-solid-primary" for="modal-1">{localizationDict[lang].moreInfo}</label>
 					<div
-						class="btn btn-solid-primary"
+						class="btn btn-sm sm:btn-md btn-solid-primary"
 						on:click={() => {
 							window.open('https://www.aumeister.de/willkommen/', '_blank');
 						}}
@@ -105,17 +105,17 @@
 						{localizationDict[lang].website}
 					</div>
 					{#if lang === "en"}
-						<div class="btn btn-solid-primary" on:click={() => setLang('de')} on:keydown={() => setLang('de')}>
+						<div class="btn btn-sm sm:btn-md btn-solid-primary" on:click={() => setLang('de')} on:keydown={() => setLang('de')}>
 							DE
 						</div>
 					{:else}
-						<div class="btn btn-solid-primary" on:click={() => setLang('en')} on:keydown={() => setLang('en')}>
+						<div class="btn btn-sm sm:btn-md btn-solid-primary" on:click={() => setLang('en')} on:keydown={() => setLang('en')}>
 							EN
 						</div>
 					{/if}
 					{#if !hideMenu}
 						<div
-							class="btn btn-solid-primary"
+							class="btn btn-sm sm:btn-md btn-solid-primary"
 							on:click={() => (hideMenu = true)}
 							on:keydown={() => (hideMenu = true)}
 						>
@@ -123,7 +123,7 @@
 						</div>
 					{:else}
 						<div
-							class="btn btn-solid-primary"
+							class="btn btn-sm sm:btn-md btn-solid-primary"
 							on:click={() => (hideMenu = false)}
 							on:keydown={() => (hideMenu = false)}
 						>
