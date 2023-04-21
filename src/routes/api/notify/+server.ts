@@ -19,7 +19,7 @@ export async function GET() {
 		const targetElement = $('div#c769 p.text-center');
 		const extractedText = targetElement.text();
 
-		const isOpen = extractedText.includes('geöffnet');
+		const isOpen = extractedText.includes('öffnet');
 		const color = isOpen ? 3066993 : 15158332;
 		const title = isOpen ? '🍻 Aumeister is OPEN today!' : 'Aumeister is CLOSED today.';
 

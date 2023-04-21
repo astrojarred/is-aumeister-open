@@ -16,7 +16,7 @@ export async function load() {
 		const extractedText = targetElement.text();
 
 		if (extractedText) {
-			isOpen = extractedText.includes('geöffnet');
+			isOpen = extractedText.includes('öffnet');
 		}
         else {
             throw error(500, 'Error fetching from the aumeister website.')
