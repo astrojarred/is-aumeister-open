@@ -65,7 +65,7 @@
 			{data?.open ? localizationDict[lang].yes : localizationDict[lang].no}
 		</h1>
 		{#if updatingSoon}
-			<div class="alert alert-info lg:max-w-lg mx-5 mt-5">
+			<div class="alert alert-info max-w-sm lg:max-w-lg mx-5 mt-5">
 				<svg
 					width="48"
 					height="48"
