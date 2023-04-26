@@ -1,38 +1,16 @@
-# create-svelte
+# Is Aumeister Open? 🍻
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+A small website which tells you whether or not the Munich biergarten [Aumeister](https://www.aumeister.de/willkommen/) is open today. 
 
-## Creating a project
+Site: [Is Aumeister Open](https://isaumeisteropen.com.de/)
+## Tech stack
 
-If you're seeing this, you've probably already done this step. Congrats!
+The website, including the backend, is written with SvelteKit. When you open the page it scrapes the official website and pulls the current status.
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## Features
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+- Localization (DE/EN)
+- Optimized for mobile and desktop
+- Daily Discord notifications
+- An [API enpoint](https://isaumeisteropen.com.de/api/open) which you can query for the current status 
+- Display mode where you can hide the bottom menubar
