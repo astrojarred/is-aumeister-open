@@ -19,9 +19,23 @@ export async function GET() {
 		const targetElement = $('div#c769 p.text-center');
 		const extractedText = targetElement.text();
 
-		const isOpen = extractedText.includes('öffnet');
+		let isOpen = extractedText.includes('öffnet');
+		let butTomorrow = extractedText.includes('öffnet morgen');
+
+		let title;
+
+		if (isOpen) {
+			if (butTomorrow) {
+				title = 'Aumeister is CLOSED today (but open tomorrow!)';
+				isOpen = false;
+			} else {
+				title = '🍻 Aumeister is OPEN today!';
+			}
+		} else {
+			title = 'Aumeister is CLOSED today.';
+		}
+
 		const color = isOpen ? 3066993 : 15158332;
-		const title = isOpen ? '🍻 Aumeister is OPEN today!' : 'Aumeister is CLOSED today.';
 
 		const embed = new EmbedBuilder()
 			.setTitle(title)
@@ -34,7 +48,7 @@ export async function GET() {
 			embeds: [embed]
 		});
 
-		return json({ open: isOpen, message: extractedText, note: title });
+		return json({ open: isOpen, butTomorrow: butTomorrow, message: extractedText, note: title });
 	} catch (err) {
 		console.error('Error:', err);
 		throw error(500, 'Error fetching from the aumeister website.');

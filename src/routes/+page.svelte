@@ -18,6 +18,7 @@
 			fromWebsite: 'From the website',
 			attention: 'Attention',
 			thisCouldChange: 'This could change around 10 AM!',
+			openTomorrow: 'But it will be open tomorrow!'
 		},
 		de: {
 			yes: '🍻JA.',
@@ -29,6 +30,7 @@
 			fromWebsite: 'Von der Webseite',
 			attention: 'Achtung',
 			thisCouldChange: 'Dies könnte sich gegen 10 Uhr ändern!',
+			openTomorrow: 'Aber morgen wird es geöffnet sein!'
 		}
 	};
 
@@ -64,6 +66,11 @@
 		<h1 class="text-7xl">
 			{data?.open ? localizationDict[lang].yes : localizationDict[lang].no}
 		</h1>
+		{#if data?.butTomorrow}
+		<h3 class="text-md sm:text-2xl mt-2">
+			👀&nbsp;{localizationDict[lang].openTomorrow}
+		</h3>
+		{/if}
 		{#if updatingSoon}
 			<div class="alert alert-info max-w-sm lg:max-w-lg mx-5 mt-5">
 				<svg

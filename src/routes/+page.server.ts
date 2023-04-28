@@ -10,6 +10,7 @@ export async function load() {
 
 	try {
         let isOpen;
+		let butTomorrow;
 		const response = await fetch(URL);
 		const html = await response.text();
 		const $ = cheerio.load(html);
@@ -18,12 +19,18 @@ export async function load() {
 
 		if (extractedText) {
 			isOpen = extractedText.includes('öffnet');
+			butTomorrow = extractedText.includes('öffnet morgen');
+
+			if (butTomorrow) {
+				isOpen = false;
+			}
+			
 		}
         else {
             throw error(500, 'Error fetching from the aumeister website.')
         }
 
-		return { message: extractedText, open: isOpen };
+		return { message: extractedText, open: isOpen, butTomorrow: butTomorrow };
 	} catch (e) {
 		console.log('ERROR');
 		console.log(e);
